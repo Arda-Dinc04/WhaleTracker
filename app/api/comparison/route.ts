@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase';
+import { whaleStatsSinceIso } from '@/lib/dashboard-window';
 import type {
   ComparisonResponse,
   ComparisonTokenStats,
@@ -20,7 +21,7 @@ type Row = {
 function computeStats(token: TokenSymbol, rows: Row[]): ComparisonTokenStats {
   const tokenRows = rows.filter((r) => r.token === token);
 
-  let whaleVolume24h = 0;
+  let whaleVolume7d = 0;
   let largestTransfer = 0;
   const senders = new Set<string>();
   const receivers = new Set<string>();
@@ -28,7 +29,7 @@ function computeStats(token: TokenSymbol, rows: Row[]): ComparisonTokenStats {
 
   for (const r of tokenRows) {
     const amt = Number(r.amount_usd);
-    whaleVolume24h += amt;
+    whaleVolume7d += amt;
     if (amt > largestTransfer) largestTransfer = amt;
     senders.add(r.from_addr.toLowerCase());
     receivers.add(r.to_addr.toLowerCase());
@@ -42,8 +43,8 @@ function computeStats(token: TokenSymbol, rows: Row[]): ComparisonTokenStats {
     );
   }
 
-  const whaleTransfers24h = tokenRows.length;
-  const avgTransferSize = whaleTransfers24h > 0 ? whaleVolume24h / whaleTransfers24h : 0;
+  const whaleTransfers7d = tokenRows.length;
+  const avgTransferSize = whaleTransfers7d > 0 ? whaleVolume7d / whaleTransfers7d : 0;
 
   const totalAddressVolume = Array.from(addressVolume.values()).reduce((a, b) => a + b, 0);
   const top20Volume = Array.from(addressVolume.values())
@@ -54,8 +55,8 @@ function computeStats(token: TokenSymbol, rows: Row[]): ComparisonTokenStats {
 
   return {
     token,
-    whaleVolume24h,
-    whaleTransfers24h,
+    whaleVolume7d,
+    whaleTransfers7d,
     avgTransferSize,
     largestTransfer,
     uniqueSenders: senders.size,
@@ -67,7 +68,7 @@ function computeStats(token: TokenSymbol, rows: Row[]): ComparisonTokenStats {
 export async function GET() {
   try {
     const supabase = getSupabase();
-    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const since = whaleStatsSinceIso();
 
     const { data, error } = await supabase
       .from('transfers')

@@ -1,6 +1,6 @@
 # Stablecoin Flow Tracker
 
-An educational analytics dashboard for USDC and USDT whale flow on Ethereum mainnet. The thesis: stablecoin on-chain data demands a different analytical frame from speculative crypto — flow, concentration, and settlement patterns instead of price and HODL behavior. The centerpiece view shows that on a typical day a small number of addresses (often ~20) account for the majority of stablecoin whale volume.
+An educational analytics dashboard for USDC and USDT whale flow on Ethereum mainnet. The thesis: stablecoin on-chain data demands a different analytical frame from speculative crypto — flow, concentration, and settlement patterns instead of price and HODL behavior. The centerpiece view shows that over a rolling week a small number of addresses often account for much of whale volume.
 
 This is **not** a trading dashboard and **not** a Whale Alert clone. No push alerts, no live ticker, no other assets.
 
@@ -36,7 +36,7 @@ Open http://localhost:3000.
 1. Push to GitHub.
 2. Import the repo into Vercel.
 3. Paste the same env vars into the Vercel project.
-4. `vercel.json` declares the 15-minute cron — no extra config needed.
+4. `vercel.json` configures the ingest cron schedule (often daily on Hobby tier; change the expression when upgrading plans).
 5. After the first deploy, run `npm run backfill` locally (it writes straight to your hosted Supabase) so the dashboard isn't empty on day one.
 
 ## Limitations

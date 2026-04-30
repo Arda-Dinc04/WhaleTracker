@@ -72,19 +72,19 @@ export function MainFinding() {
           <p className="mt-2 text-sm text-[var(--muted)]">
             Couldn&apos;t load main finding. {error}
           </p>
-        ) : data.total24hVolume === 0 ? (
+        ) : data.total7dVolume === 0 ? (
           <p className="mt-2 text-base leading-relaxed">
-            No whale activity above $100,000 in the last 24 hours.
+            No whale activity above $100,000 in the last 7 days.
           </p>
         ) : (
           <p className="mt-2 text-base leading-relaxed">
-            In the last 24 hours, the top 20 addresses handled{' '}
+            In the last 7 days, the top 20 addresses handled{' '}
             <span className="font-semibold text-white">
               {Math.round(data.top20Share * 100)}%
             </span>{' '}
             of observed USDC + USDT whale volume (
             <span className="font-mono text-white">
-              {formatUsd(data.total24hVolume)}
+              {formatUsd(data.total7dVolume)}
             </span>{' '}
             total), suggesting whale stablecoin activity is highly concentrated.
             {dominantCategory(data) && (

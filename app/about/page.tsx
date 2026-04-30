@@ -42,15 +42,15 @@ export default function AboutPage() {
           <ul className="mt-2 list-disc space-y-1 pl-6 text-sm leading-relaxed text-[var(--muted)]">
             <li>
               <span className="text-white">Macro strip</span>: Ethereum-side circulating
-              supply for USDC and USDT (DefiLlama), plus 24h whale volume and count.
+              supply for USDC and USDT (DefiLlama), plus 7-day whale volume and count.
             </li>
             <li>
               <span className="text-white">Concentration chart</span> (centerpiece): the
-              top 20 addresses by total whale volume in the last 24 hours, alongside the
+              top 20 addresses by total whale volume in the last 7 days, alongside the
               share of all whale volume those 20 addresses account for.
             </li>
             <li>
-              <span className="text-white">Hourly flow</span>: a 48-hour bar chart showing
+              <span className="text-white">Hourly flow</span>: a 7-day bar chart showing
               whale volume per hour, split by token.
             </li>
             <li>
@@ -60,7 +60,7 @@ export default function AboutPage() {
             <li>
               <span className="text-white">Address classifier</span>: paste any address to
               see whether it&apos;s in our curated label list, plus a transparent heuristic
-              guess from its 24h activity.
+              guess from its 7-day whale activity.
             </li>
           </ul>
 
@@ -75,7 +75,7 @@ export default function AboutPage() {
               Transfer data comes from the Etherscan API v2 ERC-20 transfer endpoint.
               Macro supply comes from DefiLlama.
             </li>
-            <li>The cron ingests new transfers every 15 minutes. The visible window is the last 48 hours.</li>
+            <li>The cron ingests on the schedule in <code className="mono text-white">vercel.json</code>. Most dashboard views use a rolling 7-day window of on-chain timestamps; the flow chart buckets all of it by hour.</li>
           </ul>
 
           <h2 className="mt-8 text-lg font-semibold">Limitations</h2>

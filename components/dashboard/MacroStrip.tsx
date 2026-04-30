@@ -84,22 +84,22 @@ export function MacroStrip({
         }
       />
       <Stat
-        label="Whale Volume (24h)"
-        value={formatUsd(data.whaleVolume24h)}
+        label="Whale Volume (7d)"
+        value={formatUsd(data.whaleVolume7d)}
         explainer={
           <>
             Total USD value of all USDC + USDT transfers above $100,000 on Ethereum mainnet
-            in the last 24 hours. This is the gross amount moved, not net flow.
+            in the last 7 days. This is the gross amount moved, not net flow.
           </>
         }
       />
       <Stat
-        label="Whale Transfers (24h)"
-        value={formatNumber(data.whaleCount24h)}
+        label="Whale Transfers (7d)"
+        value={formatNumber(data.whaleCount7d)}
         explainer={
           <>
             Count of USDC + USDT transfers above $100,000 on Ethereum mainnet in the last
-            24 hours.
+            7 days.
           </>
         }
       />

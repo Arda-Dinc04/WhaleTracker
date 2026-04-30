@@ -103,7 +103,7 @@ export function RoleBreakdown() {
 
   return (
     <ExplainerCard
-      title="Address Role Breakdown · Last 24h"
+      title="Address Role Breakdown · Last 7 days"
       explainer={
         <>
           Each whale transfer is attributed to a single role using the from/to address
@@ -137,7 +137,7 @@ export function RoleBreakdown() {
         </div>
       ) : empty ? (
         <div className="flex h-32 items-center justify-center text-sm text-[var(--muted)]">
-          No whale transfers in the last 24h.
+          No whale transfers in the last 7 days.
         </div>
       ) : (
         <div className="space-y-5">

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase';
 import { lookupAddress } from '@/lib/known-addresses';
 import { classifyAddress } from '@/lib/classify';
+import { whaleStatsSinceIso } from '@/lib/dashboard-window';
 import type {
   ConcentrationAddress,
   ConcentrationResponse,
@@ -30,7 +31,7 @@ export async function GET(req: Request) {
     const token = parseToken(url.searchParams.get('token'));
     const supabase = getSupabase();
 
-    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const since = whaleStatsSinceIso();
     let query = supabase
       .from('transfers')
       .select('from_addr,to_addr,amount_usd,token')
@@ -113,7 +114,7 @@ export async function GET(req: Request) {
 
     const body: ConcentrationResponse = {
       token,
-      total24hVolume: totalAddressVolume,
+      total7dVolume: totalAddressVolume,
       topAddresses,
       top5Share,
       top20Share,

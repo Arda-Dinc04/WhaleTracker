@@ -39,8 +39,8 @@ export default function Home() {
         </div>
 
         <footer className="mt-12 border-t border-[var(--border)] pt-4 text-xs text-[var(--muted)]">
-          Data: Etherscan, DefiLlama. Updated every 15 minutes. Whale threshold: $100,000.
-          USDC and USDT treated as $1.
+          Data: Etherscan, DefiLlama. Rolling 7-day on-chain window for whale stats. Whale
+          threshold: $100,000. USDC and USDT treated as $1.
         </footer>
       </main>
     </div>

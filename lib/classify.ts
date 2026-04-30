@@ -1,5 +1,5 @@
 import { lookupAddress } from './known-addresses';
-import type { Classification, ClassifyStats24h } from './types';
+import type { Classification, ClassifyStats7d } from './types';
 
 export function classifyAddress(
   address: string,
@@ -57,7 +57,7 @@ export function deriveStats(rows: Array<{
   from_addr: string;
   to_addr: string;
   amount_usd: number;
-}>, address: string): ClassifyStats24h {
+}>, address: string): ClassifyStats7d {
   const a = address.toLowerCase();
   let sentVolume = 0;
   let receivedVolume = 0;

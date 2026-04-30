@@ -11,8 +11,8 @@ type Row = {
 };
 
 const ROWS: Row[] = [
-  { label: 'Whale volume (24h)', render: (s) => formatUsd(s.whaleVolume24h) },
-  { label: 'Whale transfers (24h)', render: (s) => formatNumber(s.whaleTransfers24h) },
+  { label: 'Whale volume (7d)', render: (s) => formatUsd(s.whaleVolume7d) },
+  { label: 'Whale transfers (7d)', render: (s) => formatNumber(s.whaleTransfers7d) },
   { label: 'Average whale transfer', render: (s) => formatUsd(s.avgTransferSize) },
   { label: 'Largest transfer', render: (s) => formatUsd(s.largestTransfer, { abbreviated: false }) },
   { label: 'Unique senders', render: (s) => formatNumber(s.uniqueSenders) },
@@ -51,10 +51,10 @@ export function ComparisonTable() {
 
   return (
     <ExplainerCard
-      title="USDC vs USDT · Last 24h"
+      title="USDC vs USDT · Last 7 days"
       explainer={
         <>
-          Side-by-side metrics for whale-scale activity over the last 24 hours. Top 20
+          Side-by-side metrics for whale-scale activity over the last 7 days. Top 20
           concentration is the share of address-side volume held by the 20 largest
           addresses for that token.
         </>

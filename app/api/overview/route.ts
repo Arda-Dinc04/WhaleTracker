@@ -4,6 +4,7 @@ import {
   getUsdcCirculatingOnEthereum,
   getUsdtCirculatingOnEthereum,
 } from '@/lib/defillama';
+import { whaleStatsSinceIso } from '@/lib/dashboard-window';
 import type { OverviewResponse } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -13,7 +14,7 @@ export const revalidate = 0;
 export async function GET() {
   try {
     const supabase = getSupabase();
-    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const since = whaleStatsSinceIso();
 
     const [usdcSupply, usdtSupply, transfersResp, latestResp] = await Promise.all([
       getUsdcCirculatingOnEthereum().catch(() => 0),
@@ -35,8 +36,8 @@ export async function GET() {
     }
 
     const rows = (transfersResp.data ?? []) as Array<{ amount_usd: number }>;
-    const whaleVolume24h = rows.reduce((acc, r) => acc + Number(r.amount_usd), 0);
-    const whaleCount24h = transfersResp.count ?? rows.length;
+    const whaleVolume7d = rows.reduce((acc, r) => acc + Number(r.amount_usd), 0);
+    const whaleCount7d = transfersResp.count ?? rows.length;
 
     const lastIngestedAt =
       (latestResp.data as { ingested_at: string } | null)?.ingested_at ??
@@ -45,8 +46,8 @@ export async function GET() {
     const body: OverviewResponse = {
       usdcSupplyEthereum: usdcSupply,
       usdtSupplyEthereum: usdtSupply,
-      whaleVolume24h,
-      whaleCount24h,
+      whaleVolume7d,
+      whaleCount7d,
       lastIngestedAt,
     };
     return NextResponse.json(body);

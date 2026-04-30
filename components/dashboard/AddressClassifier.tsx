@@ -62,7 +62,7 @@ export function AddressClassifier() {
     classify(addr);
   }
 
-  const noActivity = data && data.stats24h.transferCount === 0;
+  const noActivity = data && data.stats7d.transferCount === 0;
 
   return (
     <ExplainerCard
@@ -70,7 +70,7 @@ export function AddressClassifier() {
       explainer={
         <>
           Paste any Ethereum address. We look it up in our curated label list. If it&apos;s
-          unknown, a transparent heuristic guesses based on its 24h whale activity in our
+          unknown, a transparent heuristic guesses based on its 7-day whale activity in our
           window. Heuristic guesses are clearly labeled as such.
         </>
       }
@@ -138,33 +138,33 @@ export function AddressClassifier() {
           </div>
 
           <div>
-            <div className="text-xs uppercase tracking-wider text-[var(--muted)]">24h stats (whale-only)</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--muted)]">7-day stats (whale-only)</div>
             {noActivity ? (
               <p className="mt-1 text-sm text-[var(--muted)]">
-                No whale activity in our 48h window. This address may still be active for
+                No whale activity in our 7-day window. This address may still be active for
                 sub-$100k transfers, which we don&apos;t track.
               </p>
             ) : (
               <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
                 <div>
                   <div className="text-xs text-[var(--muted)]">Sent</div>
-                  <div className="mono">{formatUsd(data.stats24h.sentVolume)}</div>
+                  <div className="mono">{formatUsd(data.stats7d.sentVolume)}</div>
                 </div>
                 <div>
                   <div className="text-xs text-[var(--muted)]">Received</div>
-                  <div className="mono">{formatUsd(data.stats24h.receivedVolume)}</div>
+                  <div className="mono">{formatUsd(data.stats7d.receivedVolume)}</div>
                 </div>
                 <div>
                   <div className="text-xs text-[var(--muted)]">Transfers</div>
-                  <div className="mono">{formatNumber(data.stats24h.transferCount)}</div>
+                  <div className="mono">{formatNumber(data.stats7d.transferCount)}</div>
                 </div>
                 <div>
                   <div className="text-xs text-[var(--muted)]">Counterparties</div>
-                  <div className="mono">{formatNumber(data.stats24h.distinctCounterparties)}</div>
+                  <div className="mono">{formatNumber(data.stats7d.distinctCounterparties)}</div>
                 </div>
                 <div>
                   <div className="text-xs text-[var(--muted)]">Avg. transfer</div>
-                  <div className="mono">{formatUsd(data.stats24h.avgTransferSize)}</div>
+                  <div className="mono">{formatUsd(data.stats7d.avgTransferSize)}</div>
                 </div>
               </div>
             )}

@@ -7,6 +7,7 @@ import {
   FLOW_TYPE_ORDER,
   type FlowType,
 } from '@/lib/flow-type';
+import { whaleStatsSinceIso } from '@/lib/dashboard-window';
 import type { RolesResponse, RoleVolume } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -23,7 +24,7 @@ type Row = {
 export async function GET() {
   try {
     const supabase = getSupabase();
-    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const since = whaleStatsSinceIso();
 
     const { data, error } = await supabase
       .from('transfers')

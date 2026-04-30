@@ -53,7 +53,7 @@ export function FlowChart() {
     async function load() {
       setLoading(true);
       try {
-        const res = await fetch('/api/flow?hours=48');
+        const res = await fetch('/api/flow?hours=168');
         if (!res.ok) throw new Error(`flow ${res.status}`);
         const json = (await res.json()) as FlowResponse;
         if (!cancelled) {
@@ -94,7 +94,7 @@ export function FlowChart() {
 
   return (
     <ExplainerCard
-      title="Hourly Whale Flow · Last 48h"
+      title="Hourly Whale Flow · Last 7 days"
       explainer={
         <>
           Each bar is the total USD value of USDC + USDT transfers above $100,000 in that
@@ -111,7 +111,7 @@ export function FlowChart() {
         <div className="text-sm text-[var(--muted)]">Couldn&apos;t load flow. {error}</div>
       ) : !hasAny ? (
         <div className="flex h-72 items-center justify-center text-sm text-[var(--muted)]">
-          No whale activity in the last 48 hours.
+          No whale activity in the last 7 days.
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={320}>

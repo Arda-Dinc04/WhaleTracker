@@ -43,8 +43,8 @@ export type TransferRow = {
 export type OverviewResponse = {
   usdcSupplyEthereum: number;
   usdtSupplyEthereum: number;
-  whaleVolume24h: number;
-  whaleCount24h: number;
+  whaleVolume7d: number;
+  whaleCount7d: number;
   lastIngestedAt: string;
 };
 
@@ -60,7 +60,7 @@ export type ConcentrationAddress = {
 
 export type ConcentrationResponse = {
   token: TokenFilter;
-  total24hVolume: number;
+  total7dVolume: number;
   topAddresses: ConcentrationAddress[];
   top5Share: number;
   top20Share: number;
@@ -96,7 +96,7 @@ export type WhaleTransfer = {
 
 export type WhalesResponse = { transfers: WhaleTransfer[] };
 
-export type ClassifyStats24h = {
+export type ClassifyStats7d = {
   sentVolume: number;
   receivedVolume: number;
   transferCount: number;
@@ -107,13 +107,13 @@ export type ClassifyStats24h = {
 export type ClassifyResponse = {
   address: string;
   classification: Classification;
-  stats24h: ClassifyStats24h;
+  stats7d: ClassifyStats7d;
 };
 
 export type ComparisonTokenStats = {
   token: TokenSymbol;
-  whaleVolume24h: number;
-  whaleTransfers24h: number;
+  whaleVolume7d: number;
+  whaleTransfers7d: number;
   avgTransferSize: number;
   largestTransfer: number;
   uniqueSenders: number;

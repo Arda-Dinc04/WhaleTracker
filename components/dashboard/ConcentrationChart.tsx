@@ -102,11 +102,11 @@ export function ConcentrationChart() {
 
   return (
     <ExplainerCard
-      title="Address Concentration · Last 24h"
+      title="Address Concentration · Last 7 days"
       right={<TokenToggle value={token} onChange={setToken} />}
       explainer={
         <>
-          Top 20 addresses ranked by total whale volume in the last 24 hours. An address&apos;s
+          Top 20 addresses ranked by total whale volume in the last 7 days. An address&apos;s
           volume is the sum of all transfers it sent and all transfers it received. The
           headline percentage is that top-20 volume divided by total whale volume in the
           window.
@@ -128,9 +128,9 @@ export function ConcentrationChart() {
               <div className="skeleton h-12 w-32" />
               <div className="skeleton mt-3 h-3 w-44" />
             </>
-          ) : data.total24hVolume === 0 ? (
+          ) : data.total7dVolume === 0 ? (
             <div className="text-sm text-[var(--muted)]">
-              No whale activity in the last 24h.
+              No whale activity in the last 7 days.
             </div>
           ) : (
             <>
@@ -142,8 +142,8 @@ export function ConcentrationChart() {
                 <span className="text-white">{rows.length}</span> addresses.
               </p>
               <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
-                <span className="text-[var(--muted)]">Total volume (24h)</span>
-                <span className="mono text-right">{formatUsd(data.total24hVolume)}</span>
+                <span className="text-[var(--muted)]">Total volume (7d)</span>
+                <span className="mono text-right">{formatUsd(data.total7dVolume)}</span>
                 <span className="text-[var(--muted)]">Token</span>
                 <span className="text-right">{token === 'BOTH' ? 'USDC + USDT' : token}</span>
                 <span className="text-[var(--muted)]">Top 5 share</span>
@@ -168,7 +168,7 @@ export function ConcentrationChart() {
             <div className="skeleton" style={{ height: chartHeight }} />
           ) : rows.length === 0 ? (
             <div className="flex h-72 items-center justify-center text-sm text-[var(--muted)]">
-              No whale transfers in the last 24h for this filter.
+              No whale transfers in the last 7 days for this filter.
             </div>
           ) : error ? (
             <div className="text-sm text-[var(--muted)]">Couldn&apos;t load chart. {error}</div>

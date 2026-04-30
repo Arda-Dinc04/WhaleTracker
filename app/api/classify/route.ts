@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase';
+import { whaleStatsSinceIso } from '@/lib/dashboard-window';
 import { classifyAddress, deriveStats } from '@/lib/classify';
 import type { ClassifyResponse } from '@/lib/types';
 
@@ -21,7 +22,7 @@ export async function GET(req: Request) {
     const lower = raw.toLowerCase();
 
     const supabase = getSupabase();
-    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const since = whaleStatsSinceIso();
 
     const { data, error } = await supabase
       .from('transfers')
@@ -36,18 +37,18 @@ export async function GET(req: Request) {
       amount_usd: number;
     }>;
 
-    const stats24h = deriveStats(rows, lower);
+    const stats7d = deriveStats(rows, lower);
     const classification = classifyAddress(lower, {
-      transferCount: stats24h.transferCount,
-      distinctCounterparties: stats24h.distinctCounterparties,
-      avgTransferSize: stats24h.avgTransferSize,
-      totalVolume: stats24h.sentVolume + stats24h.receivedVolume,
+      transferCount: stats7d.transferCount,
+      distinctCounterparties: stats7d.distinctCounterparties,
+      avgTransferSize: stats7d.avgTransferSize,
+      totalVolume: stats7d.sentVolume + stats7d.receivedVolume,
     });
 
     const body: ClassifyResponse = {
       address: lower,
       classification,
-      stats24h,
+      stats7d,
     };
     return NextResponse.json(body);
   } catch (err) {
